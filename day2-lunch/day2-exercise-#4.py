@@ -13,7 +13,7 @@ for i, line in enumerate(f):
         continue
     cut = line.strip("\r\n").split("\t")
     list.append(cut[2])
-    if len(list) > 10:
+    if len(list) >= 10:
         print(list)
         break
         
