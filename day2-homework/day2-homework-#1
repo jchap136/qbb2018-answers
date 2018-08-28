@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+import sys
+
+# need to use < filename to run
+for i, line in enumerate(sys.stdin):
+    if "_DROME" in line:
+        field = line.strip("\r\n").split()
+        if len(field) < 4:
+            continue
+        print(field[3], field[2])
