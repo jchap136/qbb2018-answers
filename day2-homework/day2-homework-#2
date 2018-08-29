@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+
+# run this python command followed by fly.txt followed by < .ctab file
+
+import sys
+
+# make dictonary using fly.txt
+fly_di = {}
+for line in open(sys.argv[1]):
+    if "_DROME" in line:
+        field = line.strip("\r\n").split()
+        if field[-1].startswith("FBgn"):
+            fly_di.update({field[3] : field[2]})
+#print(fly_di)
+
+# get fly gene_id in ctab file
+#ctab = []
+for i, line in enumerate(sys.stdin):
+    if i == 0:
+        continue
+    fields = line.strip("\r\n").split("\t")
+    fly = fields[8]
+    #ctab.append(fly)
+    if fly in fly_di:
+        uniprot = fly_di[fly]
+        print(line.rstrip("\r\n") + "\t" + uniprot)
+    else:
+        print(line.rstrip("\r\n") + "\t" + "no match")

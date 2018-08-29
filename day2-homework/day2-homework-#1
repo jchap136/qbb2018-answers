@@ -2,7 +2,7 @@
 
 import sys
 
-# need to use < filename to run
+# need to use < filename to run (used fly.txt)
 for i, line in enumerate(sys.stdin):
     if "_DROME" in line:
         field = line.strip("\r\n").split()
