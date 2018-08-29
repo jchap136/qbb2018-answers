@@ -42,11 +42,11 @@ for line in f:
                 my_dist_n = start - interest
             elif end < interest:
                 my_dist_n = interest - end
-            if my_dist < closest_dist:
+            if my_dist_n < closest_dist_n:
                 closest_dist_n = my_dist_n
                 closest_name_n = fields[13]
 
-print("Closest protein coding gene and distance: ", closest_name, my_dist)
-print("Closest non-protein coding gene and distance: ", closest_name_n, my_dist_n)
+print("Closest protein coding gene and distance: ", closest_name, closest_dist)
+print("Closest non-protein coding gene and distance: ", closest_name_n, closest_dist_n)
     
         
