@@ -35,9 +35,10 @@ plt.ylabel("log(FPKM2)")
 x = fpkm1_m
 y = fpkm2_m
 coef = np.polyfit(x, y, 1) # 1 is the degree, so this is linear
-fit = np.poly1d(coef)
-space = np.linspace(-1,10000)
-plt.plot(space, fit(space), '-', color='b')
+fit = np.poly1d(coef) # returns the usable function
+space = np.linspace(0,10000) # range of data
+plt.plot(space, fit(space), '-', color='b') # plot data
+plt.text(900, 30, str(fit))
 
 fig.savefig("fpkm.png")
 plt.close(fig)
