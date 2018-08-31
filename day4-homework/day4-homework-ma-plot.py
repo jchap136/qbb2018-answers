@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Usage: ./day4-homework-#4.1.py <samples.csv> <ctab_dir> <replicates>
+Usage: ./day4-homework-ma-plot.py <samples.csv> <ctab_dir> <replicates>
 
 Create a timecourse of a given transcript (FBtr0331261) for females
 """
