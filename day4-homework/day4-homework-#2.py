@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Usage: ./day4-homework-#4.1.py <gene_name> <samples.csv> <ctab_dir>
+Usage: ./day4-homework-#2.py <gene_name> <samples.csv> <ctab_dir>
 
 """
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Usage: ./day4-homework-#4.1.py <gene_name> <gene_name> ...
+Usage: ./day4-homework-#3.py <gene_name> <gene_name> ...
 
 """
 
