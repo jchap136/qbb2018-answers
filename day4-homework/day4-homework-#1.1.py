@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Usage: ./day4-homework-#4.1.py <t_name> <samples.csv> <ctab_dir> <replicates.csv>
+Usage: ./day4-homework-#1.1.py <t_name> <samples.csv> <ctab_dir> <replicates.csv>
 
 Create a timecourse of a given transcript (FBtr0331261) for females
 """
