@@ -38,6 +38,6 @@ tabs_df = pd.DataFrame(tabs)
 #print(tabs_df)
 
 
-mod = smf.ols(formula="SRR072893 ~ {} + {} + {} + {} + {}".format(name1, name2, name3, name4, name5), data=tabs_df)
+mod = smf.ols(formula="{} ~ {} + {} + {} + {} + {}".format(name6, name1, name2, name3, name4, name5), data=tabs_df)
 res = mod.fit()
 print(res.summary())

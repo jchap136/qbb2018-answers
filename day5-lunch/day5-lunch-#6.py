@@ -32,8 +32,9 @@ tab5 = pd.read_csv(sys.argv[5], sep="\t").iloc[:, 4]
 
 name6 = sys.argv[6].split(os.sep)[-2]
 fpkms = pd.read_csv(sys.argv[6], sep="\t").iloc[:, -1]
+log_fpkms = np.log(fpkms+1)
 
-tabs = {name1 : tab1, name2 : tab2, name3 : tab3, name4 : tab4, name5 : tab5, name6 : fpkms}
+tabs = {name1 : tab1, name2 : tab2, name3 : tab3, name4 : tab4, name5 : tab5, name6 : log_fpkms}
 tabs_df = pd.DataFrame(tabs)
 
 #print(tabs_df)
@@ -41,9 +42,10 @@ tabs_df = pd.DataFrame(tabs)
 
 mod = smf.ols(formula="{} ~ {} + {} + {} + {} + {}".format(name6, name1, name2, name3, name4, name5), data=tabs_df)
 res = mod.fit()
-#print(res.summary())
+print(res.summary())
+
 res2 = res.resid
-print(res2)
+#print(res2)
 
 #prstd, iv_l, iv_u = wls_prediction_std(res)
 fig, ax = plt.subplots()
@@ -53,12 +55,13 @@ fig, ax = plt.subplots()
 #ax.plot(x, iv_u, "r--")
 #ax.plot(x, iv_l, "r--")
 #ax.legend(loc="best")
-n, bins, patches = plt.hist(res2, 500, density=True, facecolor="g", alpha=0.75)
-ax.set_xlim(-200,200)
+n, bins, patches = plt.hist(res2, 1000, density=True, facecolor="g", alpha=0.75)
+ax.set_xlim(-5,5)
+ax.set_ylim(0,13)
 #sns.residplot(x, y, lowess=True, color="g")
-plt.xlabel("Histone Modification Load")
+plt.xlabel("log Histone Modification Load")
 plt.ylabel("mRNA Transcription (FPKM)")
-fig.savefig("histone_FPKM.png")
+fig.savefig("histone_logFPKM.png")
 plt.close()
 
 
