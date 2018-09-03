@@ -33,8 +33,10 @@ for i, line in enumerate(f):
         end += 500
         start = end - 1000
     if start < 0 or end < 0:
-        continue
-    print("{0}\t{1}\t{2}\t{3}".format(ch, start, end, t_name))
+        start = 1
+        end = 1001
+        
+    print("{}\t{}\t{}\t{}".format(ch, start, end, t_name))
 
 # pandas fail
 """
