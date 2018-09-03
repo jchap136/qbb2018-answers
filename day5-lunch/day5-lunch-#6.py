@@ -45,7 +45,7 @@ res = mod.fit()
 print(res.summary())
 
 res2 = res.resid
-#print(res2)
+print(res2)
 
 #prstd, iv_l, iv_u = wls_prediction_std(res)
 fig, ax = plt.subplots()
