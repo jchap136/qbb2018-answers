@@ -42,36 +42,51 @@ for (dna_id, dna), (aa_id, aa) in zip(dna_reader, aa_reader): # zip iterates thr
 #print(all_nt)
 #print(all_aa)
 
+class FindMutations:
+    def __init__(self):
+        self.dN = 0
+        self.dS = 0
+        self.none = 0
+    def add_dN(self):
+        self.dN += 1
+    def add_dS(self):
+        self.dS += 1
+    def add_none(self):
+        self.none += 1
+
 ref_nuc = all_nt[0] # first sublist in list is reference
 ref_aa = all_aa[0] # first sublist in list is reference
-biglist = [] # list of lists
+biglist = [FindMutations() for i in range(len(ref_aa))]
 
-for protein, seq in zip(all_aa[1:], all_nt[1:]): # iterate through each sequence
-    dS = 0
-    dN = 0
-    none = 0   
-    for (amino_acid, codon, ref_amino_acid, ref_codon) in zip(protein, seq, ref_aa, ref_nuc):
+for protein, seq in zip(all_aa[1:], all_nt[1:]): # iterate through each sequence   
+    for (amino_acid, codon, ref_amino_acid, ref_codon, entry) in zip(protein, seq, ref_aa, ref_nuc, biglist):
         if amino_acid != ref_amino_acid:
-            dN += 1
+            entry.add_dN()
         elif codon != ref_codon:
-            dS += 1
+            entry.add_dS()
         else:
-            none += 1          
-    biglist.append([dS, dN, none])
+            entry.add_none()
        
 for i in range(len(biglist)):     
-    print("dS: ", str(biglist[i][0]))
-    print("dN: ", str(biglist[i][1]))
-    print("none: ", str(biglist[i][2]))
+    print("dS: ", str(biglist[i].dS))
+    print("dN: ", str(biglist[i].dN))
+    print("none: ", str(biglist[i].none))
 
-values = []
-for i in biglist:
-    values.append(i[1] / i[0])
-    
-plt.plot(values)
-plt.xlabel('dN/dS')
-plt.ylabel('Codon Position')
-plt.title('dN/dS for each Sequence')
-plt.savefig("dS_dN.png")
-plt.close()
-
+y_values = []
+x_values = []
+for i, line in enumerate(biglist):
+    if line.dS == 0:
+        line.dS = line.dS + 0.000001
+    y_values.append(line.dN / line.dS)
+    x_values.append(i)
+   
+fig, ax = plt.subplots()
+ax.scatter(x_values, y_values, alpha = 0.2, color="red")
+#plt.clim(0,3)
+#plt.plot(y_values)
+ax.set_title('dN/dS')
+plt.ylabel('dN/dS')
+plt.xlabel('Codon Position')
+plt.title('dN/dS for each Codon')
+fig.savefig("dS_dN.png")
+plt.close(fig)
