@@ -67,9 +67,9 @@ for protein, seq in zip(all_aa[1:], all_nt[1:]): # iterate through each sequence
         else:
             entry.add_none()
 
-print("codon", "\t", "dS", "\t", "dN", "\t", "no change")
+print("codon" + "\t" + "dS" + "\t" + "dN" + "\t" + "no change")
 for i in range(len(biglist)):
-    print(str(i), str(biglist[i].dS), "\t", str(biglist[i].dN), "\t", str(biglist[i].none))
+    print(str(i) + "\t" + str(biglist[i].dS) + "\t" + str(biglist[i].dN) + "\t", str(biglist[i].none))
 # for i in range(len(biglist)):
 #     print("dS: ", str(biglist[i].dS))
 #     print("dN: ", str(biglist[i].dN))
