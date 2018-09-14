@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """
-Usage: ./new_dS_dN.py <seqs.fa> <seqs_pep_mafft.fa>
+Usage: ./z-score.py <seqs.fa> <seqs_pep_mafft.fa>
 
-After converting aa back to nt, get dN and dS values
+After converting aa back to nt, get dN and dS values, and print out nice tabbed list
 """
 
 import sys
@@ -66,12 +66,16 @@ for protein, seq in zip(all_aa[1:], all_nt[1:]): # iterate through each sequence
             entry.add_dS()
         else:
             entry.add_none()
-       
-for i in range(len(biglist)):     
-    print("dS: ", str(biglist[i].dS))
-    print("dN: ", str(biglist[i].dN))
-    print("none: ", str(biglist[i].none))
 
+print("codon", "\t", "dS", "\t", "dN", "\t", "no change")
+for i in range(len(biglist)):
+    print(str(i), str(biglist[i].dS), "\t", str(biglist[i].dN), "\t", str(biglist[i].none))
+# for i in range(len(biglist)):
+#     print("dS: ", str(biglist[i].dS))
+#     print("dN: ", str(biglist[i].dN))
+#     print("none: ", str(biglist[i].none))
+
+"""
 y_values = []
 x_values = []
 for i, line in enumerate(biglist):
@@ -84,9 +88,10 @@ fig, ax = plt.subplots()
 ax.scatter(x_values, y_values, alpha = 0.2, color="red")
 #plt.clim(0,3)
 #plt.plot(y_values)
-#ax.set_title('dN/dS')
-plt.ylabel('dN/dS')
+#ax.set_title('z score for each codon')
+plt.ylabel('z score')
 plt.xlabel('Codon Position')
-plt.title('dN/dS for each Codon')
-fig.savefig("dS_dN.png")
+plt.title('z score for each codon')
+fig.savefig("zscore.png")
 plt.close(fig)
+"""

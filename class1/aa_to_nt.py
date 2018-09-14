@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Usage: ./aa_to_nt.py <seqs.fa> <aligned_aa.fa>
+Usage: ./aa_to_nt.py <seqs.fa> <seqs_pep_mafft.fa>
 
 convert aa to nt
 """
