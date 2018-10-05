@@ -30,8 +30,10 @@ plt.xscale("log")
 ax.set_title("FPKM2 vs FPKM1") # y vs x
 plt.xlabel("log(FPKM1)")
 plt.ylabel("log(FPKM2)")
+
 #plt.axis([0.001, 10000, 0.001, 10000])
 #axes = plt.gca()
+
 # polyfit stuff
 x = fpkm1_m
 y = fpkm2_m
