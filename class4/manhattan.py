@@ -42,12 +42,14 @@ for fname in sys.argv[1:]:
         plt.rc('axes', prop_cycle=(cycler('color', ['r', 'g', 'b', 'y', 'm', 'c',\
          'salmon', 'darkviolet', 'tomato', 'chocolate', 'aqua', \
          'deeppink', 'lime', 'crimson', 'darkgreen', 'orchid'])))
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(20,5))
         curr_chr = 1
         #biglist = [[[bp_list[0]]]] # collection of sublists
         biglist = []
         sublist = [[], []] # list of 2 lists - bp and p
         offset = 0
+        x_ticks = ["chrI"]
+        x_tick_pos = []
         for i in range(len(chrom_list)):
             chrom = chrom_list[i]
             bp = bp_list[i]
@@ -60,28 +62,32 @@ for fname in sys.argv[1:]:
                 # if using biglist from line 47 and appending sublist: [[[1074]], [[x1], [y1]], [[x2], [y2]]]
             else:
                 # set tmp value, plot values in same chr, then set offset values for next chr
+                x_ticks.append(chrom)
+                max_sub = max(sublist[0])
+                x_tick_pos.append(offset + max_sub/2)
                 tmp = sublist[0][0] 
                 for i, val in enumerate(sublist[0]):
                     sublist[0][i] = (val - tmp) + offset
-                    if i > len(sublist[0]):
-                        ax.set_xticklabels(str(curr_chr))
+                    # if i > len(sublist[0]):
+#                         ax.set_xticklabels(str(curr_chr))
                 offset = sublist[0][-1] # add last value of previous chr to next chr series
                 plt.scatter(sublist[0], sublist[1], alpha=0.1, s=10) # then hopefully it changes color next time
                 #biglist.append(sublist) # add sublist to biglist
-                #print(sublist[0][0])
-                
-                
+                #print(sublist[0][0])    
                 sublist = [[], []] # empty sublist to prep for next series of chr
-               
                 curr_chr += 1
                 sublist[0].append(bp)
                 sublist[1].append(p)
-
-        ax.axhline(y=5, color='black', linewidth=1, linestyle='--')
-        ax.set_title("{}".format(treatment))
-        ax.set_xlabel("chromosome")
-        ax.set_ylabel("-log(p)")
-        fig.savefig("test.png")
+                
+        #print(x_ticks)
+        ax.set_xticks(x_tick_pos)
+        ax.set_xticklabels(x_ticks)
+        ax.axhline(5, color='black', linewidth=1, linestyle='--', label="significance cutoff")
+        ax.set_title("{} Manhattan Plot".format(treatment))
+        ax.set_xlabel("genome position")
+        ax.set_ylabel("-log10(p-value)")
+        ax.legend()
+        #fig.savefig("test.png")
         fig.savefig("manhattan_{}.png".format(treatment))
         plt.close(fig)
 
