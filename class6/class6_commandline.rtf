@@ -1,0 +1,32 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Monaco;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red242\green242\blue242;\red23\green23\blue23;}
+{\*\expandedcolortbl;;\csgray\c95825;\cspthree\c11680\c11680\c11680;}
+\margl1440\margr1440\vieww15440\viewh12620\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \CocoaLigature0 tar -xJf g1e.tar.xz\
+conda create -n macs2 macs2\
+source activate macs2\
+#go to http://hgdownload.soe.ucsc.edu/goldenPath/mm10/chromosomes/\
+#get chr19.fa.gz\
+gunzip chr19.fa.gz\
+#http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#indexing-a-reference-genome\
+bowtie2-build chr19.fa chr19_indexed\
+#make index directory\
+bowtie2 -p 4 -x index/chr19_indexed input_ER4.fastq > input_ER4.sam\
+bowtie2 -p 4 -x index/chr19_indexed input_G1E.fastq > input_G1E.sam\
+bowtie2 -p 4 -x index/chr19_indexed CTCF_ER4.fastq > CTCF_ER4.sam\
+bowtie2 -p 4 -x index/chr19_indexed CTCF_G1E.fastq > CTCF_G1E.sam\
+macs2 callpeak -t CTCF_ER4.sam -c input_ER4.sam -f SAM -g 62000000 -n ER4 --outdir ER4\
+macs2 callpeak -t CTCF_G1E.sam -c input_G1E.sam -f SAM -g 62000000 -n G1E --outdir G1E\
+#get peaks in G1E cells that are not in ER4 differentiated cells\
+bedtools intersect -a G1E/G1E_peaks.narrowPeak -b ER4/ER4_peaks.narrowPeak -v > ctcf_lost.bed\
+#get peaks in ER4 cells that are not in G1E undifferentiated cells\
+bedtools intersect -a ER4/ER4_peaks.narrowPeak -b G1E/G1E_peaks.narrowPeak -v > ctcf_gained.bed\
+
+\f1\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+}
