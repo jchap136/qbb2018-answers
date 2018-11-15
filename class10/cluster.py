@@ -3,7 +3,7 @@
 """
 Usage: ./cluster.py rna-seq.txt
 
-find position of motif within CTCF peak
+generate heatmap and dendrogram fronm RNA-seq data
 """
 
 import sys
