@@ -1,4 +1,4 @@
-start bin 	end bin 	enrichment value
+bin_1 	bin_2 	enrichment_value
 6 	7 	8.723521
 6 	18 	2.541236
 6 	19 	2.0928304
